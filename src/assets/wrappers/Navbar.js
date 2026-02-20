@@ -22,13 +22,13 @@ const Wrapper = styled.nav`
     gap: 0.5rem;
     margin-top: 1rem;
   }
-  a {
+  .nav-link {
     color: var(--grey-900);
     padding: 0.5rem 0.5rem 0.5rem 0;
     transition: var(--transition);
     letter-spacing: 2px;
   }
-  a:hover {
+  .nav-link:hover {
     color: var(--primary-500);
   }
   .active {
