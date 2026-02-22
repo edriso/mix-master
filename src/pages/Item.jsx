@@ -9,8 +9,16 @@ export const loader = async ({ params }) => {
   const { id } = params;
   const { data } = await axios.get(`${singleItemUrl}${id}`);
 
+  // "new Response" is a built-in Web API (like fetch).
+  // It creates a standard HTTP Response object.
+  // When you "throw" a Response inside a loader, React Router catches it
+  // and renders the nearest errorElement instead of the component.
+  // The first argument is the body ('Item not found'), and the second
+  // is an options object where we set the status code (404).
+  // This is React Router's way of saying "stop here, show the error page."
+  //
   // if (!data?.drinks) {
-  //   throw new Response('Drink not found', { status: 404 });
+  //   throw new Response('Item not found', { status: 404 });
   // }
 
   return {
