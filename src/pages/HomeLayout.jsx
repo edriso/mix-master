@@ -10,7 +10,7 @@ const HomeLayout = () => {
       <Navbar />
 
       <main className='page'>
-        {isPageLoading ? <h2>loading...</h2> : <Outlet />}
+        {isPageLoading ? <div className='loading' /> : <Outlet />}
       </main>
     </>
   );
