@@ -9,6 +9,7 @@ import {
   SinglePageError,
 } from './pages';
 import { loader as landingLoader } from './pages/Landing';
+import { loader as singleItemLoader } from './pages/Item';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/item/:id',
+        loader: singleItemLoader,
         element: <Item />,
       },
       {
