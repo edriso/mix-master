@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import axios from 'axios';
-import CardsList from '../components/CardsList';
+import CardList from '../components/CardList';
 
 const dataSearchUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php';
 
@@ -19,7 +19,7 @@ const Landing = () => {
 
   return (
     <>
-      <CardsList items={items} />
+      <CardList items={items} />
     </>
   );
 };

@@ -1,7 +1,7 @@
-import Wrapper from '../assets/wrappers/CardsList';
+import Wrapper from '../assets/wrappers/CardList';
 import CardItem from './CardItem';
 
-const CardsList = ({ items }) => {
+const CardList = ({ items }) => {
   if (!items?.length) {
     return <h4 style={{ textAlign: 'center' }}>No matching items found...</h4>;
   }
@@ -26,4 +26,4 @@ const CardsList = ({ items }) => {
     })}
   </Wrapper>;
 };
-export default CardsList;
+export default CardList;
