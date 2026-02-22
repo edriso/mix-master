@@ -1,3 +1,4 @@
+// import { useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/CardList';
 import CardItem from './CardItem';
 
@@ -20,10 +21,15 @@ const CardList = ({ items }) => {
     };
   });
 
-  return <Wrapper>
-    {formattedItems.map(item => {
-        return <CardItem key={item.id} {...item} />
-    })}
-  </Wrapper>;
+  // const data = useOutletContext();
+  // console.log(data);
+
+  return (
+    <Wrapper>
+      {formattedItems.map((item) => {
+        return <CardItem key={item.id} {...item} />;
+      })}
+    </Wrapper>
+  );
 };
 export default CardList;
