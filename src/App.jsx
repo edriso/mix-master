@@ -21,13 +21,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
-        errorElement: <SinglePageError />,
         loader: landingLoader,
+        errorElement: <SinglePageError />,
       },
       {
         path: '/item/:id',
-        loader: singleItemLoader,
         element: <Item />,
+        loader: singleItemLoader,
+        errorElement: <SinglePageError />,
       },
       {
         path: '/newsletter',

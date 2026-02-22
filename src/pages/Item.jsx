@@ -9,9 +9,9 @@ export const loader = async ({ params }) => {
   const { id } = params;
   const { data } = await axios.get(`${singleItemUrl}${id}`);
 
-  if (!data?.drinks) {
-    throw new Response('Drink not found', { status: 404 });
-  }
+  // if (!data?.drinks) {
+  //   throw new Response('Drink not found', { status: 404 });
+  // }
 
   return {
     id,
@@ -22,6 +22,8 @@ export const loader = async ({ params }) => {
 const Item = () => {
   const navigate = useNavigate();
   const { id, data } = useLoaderData();
+
+  if (!data?.drinks) return <h2>Something went wrong...</h2>;
 
   const singleItem = data.drinks[0];
   const {
