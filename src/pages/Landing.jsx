@@ -9,7 +9,7 @@ export const loader = async () => {
   const response = await axios.get(`${dataSearchUrl}?s=${searchTerm}`);
 
   return {
-    items: response.data.drinks,
+    items: response.data.drinks || [],
     searchTerm,
   };
 };
