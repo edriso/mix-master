@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/ItemPage';
 
 const singleItemUrl =
@@ -23,7 +23,8 @@ const Item = () => {
   const navigate = useNavigate();
   const { id, data } = useLoaderData();
 
-  if (!data?.drinks) return <h2>Something went wrong...</h2>;
+  // if (!data?.drinks) return <h2>Something went wrong...</h2>;
+  if (!data?.drinks) return <Navigate to='/' />;
 
   const singleItem = data.drinks[0];
   const {
