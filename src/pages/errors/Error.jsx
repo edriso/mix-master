@@ -4,7 +4,6 @@ import notFoundImg from '../../assets/not-found.svg';
 
 const Error = () => {
   const error = useRouteError();
-  // console.log(error); // useful while developing
 
   if (error.status === 404) {
     return (

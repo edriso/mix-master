@@ -14,14 +14,7 @@ import { loader as landingLoader } from './pages/Landing';
 import { loader as singleItemLoader } from './pages/Item';
 import { action as newsletterAction } from './pages/Newsletter';
 
-// Configure React Query with a 5-minute staleTime.
-// By default, React Query considers cached data "stale" immediately and refetches
-// on every window focus, component mount, or network reconnect.
-// Setting staleTime to 5 minutes means cached data is considered "fresh" for that
-// duration — React Query will serve the cached result without making a new network
-// request. After 5 minutes, the data becomes "stale" and will be refetched on the
-// next trigger (e.g. window refocus). This reduces unnecessary API calls while
-// keeping data reasonably up-to-date.
+// 5-minute staleTime: cached data is served without refetching during this window
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -57,17 +50,6 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />,
-        // you can nest links as deep as needed // and add <Outlet /> inside About.jsx
-        // children: [
-        //   {
-        //     index: true,
-        //     element: <h2>About Company</h2>,
-        //   },
-        //   {
-        //     path: '/Person',
-        //     element: <h2>John Doe</h2>,
-        //   },
-        // ],
       },
     ],
   },

@@ -5,8 +5,6 @@ const HomeLayout = () => {
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
 
-  // const value = 'This is a shared context value passed via Outlet';
-
   return (
     <>
       <Navbar />
@@ -15,9 +13,7 @@ const HomeLayout = () => {
         {isPageLoading ? (
           <div className='loading' />
         ) : (
-          <Outlet
-          //  context={{ value }}
-          />
+          <Outlet />
         )}
       </main>
     </>
