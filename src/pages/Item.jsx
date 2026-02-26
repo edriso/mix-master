@@ -1,35 +1,50 @@
 import axios from 'axios';
 import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/ItemPage';
+import { useQuery } from '@tanstack/react-query';
 
 const singleItemUrl =
   'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
-export const loader = async ({ params }) => {
-  const { id } = params;
-  const { data } = await axios.get(`${singleItemUrl}${id}`);
-
-  // "new Response" is a built-in Web API (like fetch).
-  // It creates a standard HTTP Response object.
-  // When you "throw" a Response inside a loader, React Router catches it
-  // and renders the nearest errorElement instead of the component.
-  // The first argument is the body ('Item not found'), and the second
-  // is an options object where we set the status code (404).
-  // This is React Router's way of saying "stop here, show the error page."
-  //
-  // if (!data?.drinks) {
-  //   throw new Response('Item not found', { status: 404 });
-  // }
-
+const singleItemQuery = (id) => {
   return {
-    id,
-    data,
+    queryKey: ['cocktail', id],
+    queryFn: async () => {
+      const { data } = await axios.get(`${singleItemUrl}${id}`);
+      return data;
+    },
+  };
+};
+
+export const loader = (queryClient) => {
+  return async ({ params }) => {
+    const { id } = params;
+
+    // const { data } = await axios.get(`${singleItemUrl}${id}`);
+    // "new Response" is a built-in Web API (like fetch).
+    // It creates a standard HTTP Response object.
+    // When you "throw" a Response inside a loader, React Router catches it
+    // and renders the nearest errorElement instead of the component.
+    // The first argument is the body ('Item not found'), and the second
+    // is an options object where we set the status code (404).
+    // This is React Router's way of saying "stop here, show the error page."
+    //
+    // if (!data?.drinks) {
+    //   throw new Response('Item not found', { status: 404 });
+    // }
+
+    await queryClient.ensureQueryData(singleItemQuery(id));
+
+    return {
+      id,
+    };
   };
 };
 
 const Item = () => {
   const navigate = useNavigate();
-  const { id, data } = useLoaderData();
+  const { id } = useLoaderData();
+  const { data } = useQuery(singleItemQuery(id));
 
   // if (!data?.drinks) return <h2>Something went wrong...</h2>;
   if (!data?.drinks) return <Navigate to='/' />;

@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       {
         path: '/item/:id',
         element: <Item />,
-        loader: singleItemLoader,
+        loader: singleItemLoader(queryClient),
         errorElement: <SinglePageError />,
       },
       {
