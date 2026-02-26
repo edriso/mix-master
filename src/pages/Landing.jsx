@@ -19,26 +19,32 @@ const searchItemsQuery = (searchTerm) => {
 };
 
 // loader is not a hook, so we can't use a hook (useQuery) inside it
-export const loader = async ({ request }) => {
-  // "new URL" is a built-in Web API.
-  // It parses a URL string into an object with handy properties like
-  // searchParams, pathname, hostname, etc.
-  // Here we use it to extract query params from the request URL,
-  // e.g. "/landing?search=milkshake" → url.searchParams.get('search') → "milkshake"
-  const url = new URL(request.url);
-  const searchTerm = url.searchParams.get('search') || 'lemon';
+export const loader = (queryClient) => {
+  return async ({ request }) => {
+    // "new URL" is a built-in Web API.
+    // It parses a URL string into an object with handy properties like
+    // searchParams, pathname, hostname, etc.
+    // Here we use it to extract query params from the request URL,
+    // e.g. "/landing?search=milkshake" → url.searchParams.get('search') → "milkshake"
+    const url = new URL(request.url);
+    const searchTerm = url.searchParams.get('search') || 'lemon';
+    
+    // ensureQueryData checks if this query's data already exists in the cache.
+    // If it does → returns cached data instantly (no network request).
+    // If it doesn't → fetches the data and waits for it.
+    // This guarantees the data is ready BEFORE the component mounts,
+    // so the user sees content immediately with no loading spinner.
+    await queryClient.ensureQueryData(searchItemsQuery(searchTerm));
 
-  return {
-    searchTerm,
+    return {
+      searchTerm,
+    };
   };
 };
 
 const Landing = () => {
   const { searchTerm } = useLoaderData();
-  const { data: items, isLoading } = useQuery(searchItemsQuery(searchTerm));
-
-  // notice now items being fetched after component mount
-  if (isLoading) return <p>Loading...</p>;
+  const { data: items } = useQuery(searchItemsQuery(searchTerm));
 
   return (
     <>
